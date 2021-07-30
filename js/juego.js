@@ -12,26 +12,26 @@ var tierra = '#804000';
 
 
 //var jugador = "#FF0000";
-var llave ='#ffff00';
-var puerta ='#8040c0';
+var llave = '#ffff00';
+var puerta = '#8040c0';
 
 
 
 var tablero = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
-    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3,0],
-    [0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1,0],
-    [0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0,0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0,0],
-    [0, 0, 2, 0, 1, 1, 1, 1, 1, 1, 0,0],
-    [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,0],
-    [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,0],
-    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0,0],
-    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,0],
-    [0, 1, 1, 1, 0, 0, 0, 0, 1, 2, 0,0],
-    [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0,0],
-    [0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0,0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0],
+    [0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0],
+    [0, 0, 2, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 0, 0, 0, 0, 1, 2, 0, 0],
+    [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+    [0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
 function dibujarEscenario() {
@@ -58,15 +58,69 @@ function dibujarEscenario() {
     }
 }
 
+function personaje() {
+
+
+    this.x = 1;
+    this.y = 1;
+    this.color = '#FF0000';
+
+    this.pintar = function () {
+
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x * anchoF, this.y * altoF, anchoF, altoF);
+
+    }
+
+    this.mueveArriba = function () {
+        this.y--;
+    }
+
+    this.mueveAbajo = function () {
+        this.y++;
+    }
+    this.mueveIzquierda = function () {
+        this.x--;
+    }
+    this.mueveDerecha = function () {
+        this.x++;
+    }
+
+
+}
+var protagonista;
+
 function inicializar() {
 
     canvas = document.getElementById('mycanvas');
     ctx = canvas.getContext('2d');
 
+    protagonista = new personaje();
 
     setInterval(function () {
         principal();
     }, 1000 / FPS);
+
+    document.addEventListener('keydown', function (tecla) {
+        if (tecla.keyCode == 38) {
+            protagonista.mueveArriba();
+        }
+        if (tecla.keyCode == 40) {
+            protagonista.mueveAbajo();
+
+
+        }
+        if (tecla.keyCode == 37) {
+            protagonista.mueveIzquierda();
+
+        }
+        if (tecla.keyCode == 39) {
+            protagonista.mueveDerecha();
+
+
+        }
+    })
+
 }
 
 
@@ -74,7 +128,7 @@ function inicializar() {
 function principal() {
     borrado();
     dibujarEscenario();
-
+    protagonista.pintar();
 }
 
 function borrado() {

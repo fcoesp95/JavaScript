@@ -64,38 +64,91 @@ function personaje() {
     this.x = 1;
     this.y = 1;
     this.color = '#FF0000';
-
+    var contadorLlaves = 0;
     this.pintar = function () {
-
+    var door = 0;
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x * anchoF, this.y * altoF, anchoF, altoF);
 
     }
-
-    this.mueveArriba = function () {
-        if (tablero[this.y - 1][this.x] != 0){
-            this.y--;
+    this.margenes = function(x,y){
+        var colision = false;
+        if (tablero[y][x] == 0){
+            colision = true;
+        }
+        return (colision);
     }
+
+    this.AlmacenarLlave = function(x,y,z){
+        if (tablero[y][x] == 2){
+            z++;
+            tablero[y][x] =1;
+    }
+        return (z);
+    }
+    this.reiniciar = function(){
+        this.x = 1;
+        this.y =1;
+        contadorLlaves = 0;
+        door = 0;
+        tablero[5][2] = 2;
+        tablero[10][9] = 2;
+        tablero[12][2] = 2;
+        tablero[1][10] = 3;
+    }
+    this.door = function(x,y,contadorLlaves){
+        if (tablero[y][x] == 3){
+            if(contadorLlaves ==3){
+                this.reiniciar();
+                console.log("Has ganado");
+
+            }
+            else{
+                if(contadorLlaves == 2){
+                console.log("Te falta " + (3-contadorLlaves) + " llave");
+                }
+                else 
+                console.log("Te faltan " + (3-contadorLlaves) + " llaves");
+
+    }
+}
+}
+    this.mueveArriba = function () {
+         if (this.margenes(this.x ,this.y-1) == false){
+            this.y--;
+            contadorLlaves = this.AlmacenarLlave(this.x,this.y,contadorLlaves);
+            door = this.door(this.x,this.y,contadorLlaves);
+
+        }
     }
     this.mueveAbajo = function () {
-        if (tablero[this.y + 1][this.x] != 0){
+        if (this.margenes(this.x,this.y+1) == false) {
 
             this.y++;
+            contadorLlaves = this.AlmacenarLlave(this.x,this.y,contadorLlaves);
+            door = this.door(this.x,this.y,contadorLlaves);
+
+        }
     }
-}
     this.mueveIzquierda = function () {
-        if (tablero[this.y][this.x - 1] != 0){
+        if (this.margenes(this.x-1,this.y) == false) {
 
             this.x--;
+            contadorLlaves = this.AlmacenarLlave(this.x,this.y,contadorLlaves);
+            door = this.door(this.x,this.y,contadorLlaves);
+
         }
-        }
+    }
     this.mueveDerecha = function () {
-        if (tablero[this.y][this.x + 1] != 0){
+        if (this.margenes(this.x+1,this.y) == false) {
 
             this.x++;
-    }
-}
+            contadorLlaves = this.AlmacenarLlave(this.x,this.y,contadorLlaves);
+            door = this.door(this.x,this.y,contadorLlaves);
 
+        }
+
+    }
 }
 var protagonista;
 

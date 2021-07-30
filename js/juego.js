@@ -73,19 +73,28 @@ function personaje() {
     }
 
     this.mueveArriba = function () {
-        this.y--;
+        if (tablero[this.y - 1][this.x] != 0){
+            this.y--;
     }
-
+    }
     this.mueveAbajo = function () {
-        this.y++;
-    }
-    this.mueveIzquierda = function () {
-        this.x--;
-    }
-    this.mueveDerecha = function () {
-        this.x++;
-    }
+        if (tablero[this.y + 1][this.x] != 0){
 
+            this.y++;
+    }
+}
+    this.mueveIzquierda = function () {
+        if (tablero[this.y][this.x - 1] != 0){
+
+            this.x--;
+        }
+        }
+    this.mueveDerecha = function () {
+        if (tablero[this.y][this.x + 1] != 0){
+
+            this.x++;
+    }
+}
 
 }
 var protagonista;

@@ -154,19 +154,19 @@ function inicializar() {
     }, 1000 / FPS);
 
     document.addEventListener('keydown', function (tecla) {
-        if (tecla.code == "ArrowUp") {
+        if ((tecla.code == "ArrowUp") || (tecla.code == "KeyW")) {
             protagonista.mueveArriba();
         }
-        if (tecla.code == "ArrowDown") {
+        if ((tecla.code == "ArrowDown") || (tecla.code == "KeyS")) {
             protagonista.mueveAbajo();
 
 
         }
-        if (tecla.code == "ArrowLeft") {
+        if ((tecla.code == "ArrowLeft") || (tecla.code == "KeyA")) {
             protagonista.mueveIzquierda();
 
         }
-        if (tecla.code == "ArrowRight") {
+        if ((tecla.code == "ArrowRight") || (tecla.code == "KeyD")) {
             protagonista.mueveDerecha();
 
 

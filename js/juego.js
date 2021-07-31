@@ -154,19 +154,19 @@ function inicializar() {
     }, 1000 / FPS);
 
     document.addEventListener('keydown', function (tecla) {
-        if (tecla.keyCode == 38) {
+        if (tecla.code == "ArrowUp") {
             protagonista.mueveArriba();
         }
-        if (tecla.keyCode == 40) {
+        if (tecla.code == "ArrowDown") {
             protagonista.mueveAbajo();
 
 
         }
-        if (tecla.keyCode == 37) {
+        if (tecla.code == "ArrowLeft") {
             protagonista.mueveIzquierda();
 
         }
-        if (tecla.keyCode == 39) {
+        if (tecla.code == "ArrowRight") {
             protagonista.mueveDerecha();
 
 

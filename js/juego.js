@@ -16,7 +16,7 @@ var tierra = '#804000';
 var llave = '#ffff00';
 var puerta = '#8040c0';
 */
-
+var llavero=3;
 
 var tablero = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -143,9 +143,27 @@ function personaje() {
         this.y = 1;
         contadorLlaves = 0;
         door = 0;
-        tablero[5][2] = 3;
-        tablero[10][9] = 3;
-        tablero[12][2] = 3;
+
+        for (i = 0; i <= 11; i++) {    
+    
+            for (j = 0; j <= 13; j++) {
+                if(tablero[j][i]==3){
+                    tablero[j][i]=2;
+                }
+            }
+        }
+        for (i = 0; i < llavero; i++) {
+            var valido = false;
+            while ((valido == false)) {
+                y = Math.floor(Math.random() * 13);
+                x = Math.floor(Math.random() * 11);
+    
+                if (tablero[x][y] == 2) {
+                    tablero[x][y] = 3;
+                    var valido = true;
+                }
+            }
+        }      
 
         for (i = 0; i < rival.length; i++) {
             rival[i].x = 0;
@@ -184,15 +202,15 @@ function personaje() {
 
     this.door = function (x, y, contadorLlaves) {
         if (tablero[y][x] == 1) {
-            if (contadorLlaves == 3) {
+            if (contadorLlaves == llavero) {
                 this.reiniciar();
                 console.log("Has ganado");
 
             } else {
-                if (contadorLlaves == 2) {
-                    console.log("Te falta " + (3 - contadorLlaves) + " llave");
+                if (contadorLlaves == (llavero -1)) {
+                    console.log("Te falta " + (llavero - contadorLlaves) + " llave");
                 } else
-                    console.log("Te faltan " + (3 - contadorLlaves) + " llaves");
+                    console.log("Te faltan " + (llavero - contadorLlaves) + " llaves");
 
             }
         }
@@ -249,6 +267,35 @@ function personaje() {
 }
 var protagonista;
 
+function llaves(){
+
+    const input = prompt("Inserte numero de llaves");
+    llavero = input;
+    console.log("cambiado a " + llavero); 
+    
+    for (i = 0; i <= 11; i++) {    
+    
+        for (j = 0; j <= 13; j++) {
+            if(tablero[j][i]==3){
+                tablero[j][i]=2;
+            }
+        }
+    }
+
+    for (i = 0; i < llavero; i++) {
+        var valido = false;
+        while ((valido == false)) {
+            y = Math.floor(Math.random() * 13);
+            x = Math.floor(Math.random() * 11);
+
+            if (tablero[x][y] == 2) {
+                tablero[x][y] = 3;
+                var valido = true;
+            }
+        }
+    }       
+
+}
 function enemigos(){
 
     var numero= rival.length;
